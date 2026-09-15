@@ -1,0 +1,53 @@
+{
+	"name": "@move-elevator/website-base-scss",
+	"version": "0.1.0",
+	"description": "Shared SCSS foundation: design tokens, tools and base styles for website projects.",
+	"license": "MIT",
+	"author": "move elevator GmbH",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/move-elevator/website-base-scss.git"
+	},
+	"files": [
+		"*.md",
+		"src"
+	],
+	"scripts": {
+		"fix": "run-p fix:package:normalize fix:style",
+		"fix:package:normalize": "prettier-package-json --write package.json --use-tabs",
+		"fix:style": "npm run lint:style -- --fix",
+		"lint": "npm run lint:style",
+		"lint:style": "stylelint \"src/**/*.scss\"",
+		"test:build": "rm -rf example/.dist && sass --no-source-map --load-path=./node_modules example:example/.dist"
+	},
+	"peerDependencies": {
+		"include-media": "^2.0.0",
+		"sass": "^1.89.0"
+	},
+	"peerDependenciesMeta": {
+		"include-media": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@move-elevator/stylelint-config-scss": "^3.0.0",
+		"@stylistic/stylelint-plugin": "^5.3.0",
+		"npm-run-all2": "^9.0.3",
+		"postcss-scss": "^4.0.9",
+		"prettier-package-json": "^2.8.0",
+		"semantic-release": "^25.0.3",
+		"stylelint": "^17.15.0",
+		"stylelint-order": "^8.1.1",
+		"stylelint-scss": "^7.2.0"
+	},
+	"keywords": [
+		"css",
+		"design-tokens",
+		"move elevator",
+		"sass",
+		"scss"
+	],
+	"publishConfig": {
+		"access": "public"
+	}
+}

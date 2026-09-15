@@ -1,0 +1,3 @@
+{
+	"extends": "@move-elevator/stylelint-config-scss/.stylelintrc.json"
+}
