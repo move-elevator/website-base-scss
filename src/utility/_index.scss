@@ -1,0 +1,6 @@
+// Utility classes. Importing this emits CSS, so it is opt-in and kept out of the
+// package's default entry. Everything lands in `@layer utilities`, late in the
+// order, so a utility beats the component it is applied to.
+
+@forward "../layers";
+@forward "visually-hidden";

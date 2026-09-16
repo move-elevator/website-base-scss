@@ -1,0 +1,11 @@
+@use "../tools" as *;
+
+@layer utilities {
+  .visually-hidden {
+    @include visually-hidden;
+
+    &-focusable {
+      @include visually-hidden-focusable;
+    }
+  }
+}
