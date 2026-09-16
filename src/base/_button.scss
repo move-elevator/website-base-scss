@@ -1,0 +1,11 @@
+@layer base {
+  button {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+  }
+}

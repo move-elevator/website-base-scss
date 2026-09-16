@@ -1,0 +1,20 @@
+// Element base styles. Importing this emits CSS, so it is opt-in and kept out of
+// the package's default entry. Every rule lands in `@layer base`; the layer order
+// is declared first via the forwarded `layers`.
+//
+// Pull in the whole set, or `@use` individual partials (e.g. base/button) to take
+// only what a project needs.
+
+@forward "../layers";
+@forward "html";
+@forward "button";
+@forward "figure";
+@forward "focus";
+@forward "hidden";
+@forward "hr";
+@forward "iframe";
+@forward "img";
+@forward "p";
+@forward "selection";
+@forward "strong";
+@forward "video";

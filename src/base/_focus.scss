@@ -1,0 +1,8 @@
+@use "../tokens" as *;
+
+@layer base {
+  :focus-visible {
+    outline: var(--size-focus, 3px) var(--style-focus, dashed) var(--color-focus, #{$black});
+    outline-offset: var(--offset-focus, 3px);
+  }
+}

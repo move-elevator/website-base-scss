@@ -1,0 +1,19 @@
+@use "../tokens" as *;
+
+@layer base {
+  html {
+    background-color: var(--color-background, #{$white});
+    box-sizing: border-box;
+    color: var(--color-text, #{$black});
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+}

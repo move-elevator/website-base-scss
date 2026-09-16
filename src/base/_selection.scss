@@ -1,0 +1,8 @@
+@use "../tokens" as *;
+
+@layer base {
+  ::selection {
+    background-color: var(--color-selection-background, #{$black});
+    color: var(--color-selection-text, #{$white});
+  }
+}

@@ -1,0 +1,8 @@
+@use "../tokens" as *;
+
+@layer base {
+  b,
+  strong {
+    font-weight: $font-weight-bold;
+  }
+}
