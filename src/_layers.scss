@@ -1,0 +1,20 @@
+// Declares the cascade layer order once, up front, so it is fixed before anything
+// emits CSS:
+//   @use "@move-elevator/website-base-scss/src/layers";
+//
+// The package only emits into `base` (element styles) and `utilities` (utility
+// classes). The rest of the order is reserved for the project:
+//
+//   tokens      The `:root` palette and type contract. First on purpose — that makes
+//               those declarations the weakest, so `components`, `utilities` and
+//               `overrides` can re-scope a custom property. Declaring them unlayered
+//               instead would beat every layer and break exactly that.
+//   components  Project components
+//   overrides   Project styles that must win over the base, whatever their specificity
+//               or source order.
+//
+// A layer that is never declared is appended to the end of the order the first time it
+// is used, so it would outrank `overrides`. Projects that need another one declare the
+// full order themselves, in a partial `@use`d before this package.
+
+@layer tokens, base, components, utilities, overrides;
