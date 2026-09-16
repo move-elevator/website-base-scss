@@ -1,0 +1,18 @@
+// Render a named SVG icon either as a color-able mask or as a background image.
+//   @include icon-mask("arrow-right");       // tint via `background-color`
+//   @include icon-background("arrow-right"); // full-color SVG
+//
+// Point `$icon-path` at the project's icon directory (relative to the compiled CSS):
+//   @use ".../tools/icon" with ($icon-path: "../Icons/");
+
+$icon-path: "../Icons/" !default;
+
+@mixin icon-mask($identifier) {
+  mask: url($icon-path + $identifier + ".svg") no-repeat center center;
+  mask-size: contain;
+}
+
+@mixin icon-background($identifier) {
+  background: url($icon-path + $identifier + ".svg") no-repeat center center;
+  background-size: contain;
+}

@@ -1,0 +1,9 @@
+// Functions and mixins only — importing this emits no CSS.
+// `media` is intentionally excluded (see tools/_media.scss) to keep the core
+// free of the optional include-media dependency.
+
+@forward "fluid-clamp";
+@forward "font-face";
+@forward "icon";
+@forward "visually-hidden";
+@forward "vw";

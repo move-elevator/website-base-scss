@@ -1,0 +1,42 @@
+@use "sass:list";
+@use "sass:map";
+
+// Emit a single `@font-face` block with `font-display: swap` and a local() fallback.
+// Ships woff2 only; pass a list to emit further formats, in the order browsers
+// should prefer them:
+//   @include font-face("Roboto", "roboto-v48-latin-regular");
+//   @include font-face("Roboto", "roboto-v48-latin-500", 500);
+//   @include font-face("Roboto", "roboto-v48-latin-regular", $formats: (woff2, woff));
+
+$font-path: "../Fonts/" !default;
+
+$font-format-hints: (
+  otf: "opentype",
+  ttf: "truetype",
+  woff: "woff",
+  woff2: "woff2"
+) !default;
+
+@mixin font-face($font-name, $file-name, $weight: 400, $style: normal, $formats: woff2) {
+  $sources: local("#{$font-name}");
+
+  @each $extension in $formats {
+    @if not map.has-key($font-format-hints, $extension) {
+      @error "Unknown font format `#{$extension}` — expected one of #{map.keys($font-format-hints)}.";
+    }
+
+    $sources: list.append(
+      $sources,
+      url("#{$font-path}#{$file-name}.#{$extension}") format("#{map.get($font-format-hints, $extension)}"),
+      $separator: comma
+    );
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: $font-name;
+    font-style: $style;
+    font-weight: $weight;
+    src: $sources;
+  }
+}

@@ -1,0 +1,13 @@
+// Responsive `media()` mixin, re-exported from include-media and pre-configured
+// with the package breakpoints. Kept out of `tools/_index` so the core stays
+// dependency-free — opt in explicitly where you need media queries:
+//   @use "@move-elevator/website-base-scss/src/tools/media" as *;
+//   @include media(">=tablet") { ... }
+//
+// Requires the `include-media` peer dependency, resolved via `--load-path=./node_modules`.
+
+@use "../tokens/breakpoints" as bp;
+
+@forward "include-media/dist/include-media" with (
+  $breakpoints: bp.$breakpoints
+);

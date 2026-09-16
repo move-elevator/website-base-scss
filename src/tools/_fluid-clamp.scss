@@ -1,0 +1,26 @@
+@use "sass:math";
+@use "sass:string";
+
+// Fluid typography / sizing: interpolates linearly between $min-size at
+// $min-breakpoint and $max-size at $max-breakpoint, clamped at both ends.
+//   font-size: fluid-clamp(16px, 19px);
+
+$fluid-clamp-baseline: 16px !default;
+
+@function px-to-rem($px) {
+  @return math.div($px, $fluid-clamp-baseline) * 1rem;
+}
+
+@function css-function($function, $values...) {
+  @return string.unquote("#{$function}(#{$values})");
+}
+
+@function fluid-clamp($min-size, $max-size, $min-breakpoint: 320px, $max-breakpoint: 1920px, $unit: vw) {
+  $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+  $slope-to-unit: $slope * 100;
+  $intercept-rem: px-to-rem($min-size - $slope * $min-breakpoint);
+  $min-size-rem: px-to-rem($min-size);
+  $max-size-rem: px-to-rem($max-size);
+
+  @return css-function(clamp, (#{$min-size-rem}, #{#{$slope-to-unit}#{$unit} "+" $intercept-rem}, #{$max-size-rem}));
+}

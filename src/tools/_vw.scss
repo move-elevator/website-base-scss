@@ -1,0 +1,18 @@
+@use "sass:math";
+
+// Convert a pixel value into a viewport-width unit relative to a design width.
+//   width: vw(320px); // → 22.222vw at a 1440px layout
+
+$layout-vw: 1440px !default;
+
+@function vw($pixels, $base-vw: $layout-vw) {
+  @if math.is-unitless($pixels) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if math.is-unitless($base-vw) {
+    $base-vw: $base-vw * 1px;
+  }
+
+  @return math.div($pixels, math.div($base-vw, 100)) * 1vw;
+}
