@@ -1,0 +1,6 @@
+// Design tokens — variables, maps and lookup functions only. Importing this emits
+// no CSS; configure any of the forwarded `!default` values via `@use ... with (…)`.
+
+@forward "breakpoints";
+@forward "color";
+@forward "font";
