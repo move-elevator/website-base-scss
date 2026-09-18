@@ -1,0 +1,11 @@
+@use "../src/tools/visually-hidden" as *;
+
+// The mixins, applied to the project's own selectors.
+.form__hint {
+  @include visually-hidden;
+}
+
+// A skip link: hidden until it takes focus.
+.skip-link {
+  @include visually-hidden-focusable;
+}

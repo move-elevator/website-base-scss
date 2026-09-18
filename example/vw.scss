@@ -1,0 +1,12 @@
+@use "../src/tools/vw" as *;
+
+// Pixel values from a 1440px-wide design, expressed relative to the viewport.
+.hero {
+  height: vw(720px);
+  padding-inline: vw(64px);
+}
+
+// Same measurement taken from a 1280px design instead.
+.hero--narrow {
+  padding-inline: vw(64px, 1280px);
+}

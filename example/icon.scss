@@ -1,0 +1,14 @@
+@use "../src/tools/icon" as * with ($icon-path: "../Icons/");
+
+.icon {
+  @include icon-mask("arrow-right");
+  background-color: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+.logo {
+  @include icon-background("logo");
+  height: 32px;
+  width: 120px;
+}

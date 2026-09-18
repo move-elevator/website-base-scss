@@ -1,0 +1,18 @@
+@use "../src/tools/fluid-clamp" as *;
+
+.headline {
+  font-size: fluid-clamp(30px, 66px);
+}
+
+.teaser {
+  font-size: fluid-clamp(16px, 19px);
+}
+
+// Interpolate across a narrower range than the default 320px–1920px.
+.section {
+  padding-block: fluid-clamp(24px, 64px, 768px, 1440px);
+}
+
+.note {
+  margin-block: px-to-rem(24px);
+}

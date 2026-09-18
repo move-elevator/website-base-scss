@@ -1,0 +1,29 @@
+@use "../src/tokens" as *;
+
+.decoration {
+  z-index: z("below");
+}
+
+.card {
+  z-index: z("raised");
+}
+
+.nav {
+  z-index: z("sticky");
+}
+
+.backdrop {
+  z-index: z("overlay");
+}
+
+.dropdown {
+  z-index: z("floating");
+}
+
+.modal {
+  z-index: z("modal");
+}
+
+.toast {
+  z-index: z("notification");
+}

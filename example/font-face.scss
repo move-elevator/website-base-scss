@@ -1,0 +1,5 @@
+@use "../src/tools/font-face" as * with ($font-path: "../Fonts/");
+
+@include font-face("Barlow", "barlow-v12-latin-regular");
+@include font-face("Barlow", "barlow-v12-latin-600", 600);
+@include font-face("Barlow", "barlow-v12-latin-italic", 400, italic, (woff2, woff));
