@@ -1,0 +1,21 @@
+@use "sass:map";
+
+$z-index: (
+  below: -1,
+  base: 1,
+  raised: 10,
+  sticky: 100,
+  overlay: 1000,
+  floating: 2000,
+  modal: 9000,
+  notification: 9500
+) !default;
+
+@function z($key) {
+  @if map.has-key($z-index, $key) {
+    @return map.get($z-index, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $z-index.";
+  @return null;
+}
