@@ -1,0 +1,43 @@
+@use "../tokens" as *;
+
+@layer base {
+  %headline {
+    color: var(--color-headline, inherit);
+    font-family: var(--font-family-headline, inherit);
+    font-weight: var(--font-weight-headline, #{$font-weight-semi-bold});
+    hyphens: auto;
+    line-height: var(--line-height-headline, 1.1);
+    margin-block: var(--margin-block-headline, 0.75em 0);
+    text-wrap: pretty;
+    word-break: break-word;
+    word-wrap: break-word;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h1 {
+    @extend %headline;
+  }
+
+  h2 {
+    @extend %headline;
+  }
+
+  h3 {
+    @extend %headline;
+  }
+
+  h4 {
+    @extend %headline;
+  }
+
+  h5 {
+    @extend %headline;
+  }
+
+  h6 {
+    @extend %headline;
+  }
+}
