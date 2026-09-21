@@ -6,6 +6,8 @@
 //   font-size: fluid-clamp(16px, 19px);
 
 $fluid-clamp-baseline: 16px !default;
+$fluid-clamp-min-breakpoint: 320px !default;
+$fluid-clamp-max-breakpoint: 1920px !default;
 
 @function px-to-rem($px) {
   @return math.div($px, $fluid-clamp-baseline) * 1rem;
@@ -15,7 +17,7 @@ $fluid-clamp-baseline: 16px !default;
   @return string.unquote("#{$function}(#{$values})");
 }
 
-@function fluid-clamp($min-size, $max-size, $min-breakpoint: 320px, $max-breakpoint: 1920px, $unit: vw) {
+@function fluid-clamp($min-size, $max-size, $min-breakpoint: $fluid-clamp-min-breakpoint, $max-breakpoint: $fluid-clamp-max-breakpoint, $unit: vw) {
   $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
   $slope-to-unit: $slope * 100;
   $intercept-rem: px-to-rem($min-size - $slope * $min-breakpoint);
