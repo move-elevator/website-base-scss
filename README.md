@@ -196,7 +196,7 @@ The opt-in typography partials add their own:
 
 | Tool | Signature | Configurable |
 | --- | --- | --- |
-| `fluid-clamp()` | `fluid-clamp($min-size, $max-size, $min-breakpoint: 320px, $max-breakpoint: 1920px, $unit: vw)` | `$fluid-clamp-baseline: 16px` |
+| `fluid-clamp()` | `fluid-clamp($min-size, $max-size, $min-breakpoint, $max-breakpoint, $unit: vw)` | `$fluid-clamp-baseline: 16px`, `$fluid-clamp-min-breakpoint: 320px`, `$fluid-clamp-max-breakpoint: 1920px` |
 | `px-to-rem()` | `px-to-rem(24px)` — relative to the same baseline | `$fluid-clamp-baseline` |
 | `vw()` | `vw($pixels, $base-vw: $layout-vw)` | `$layout-vw: 1440px` |
 | `font-face()` | `@include font-face($font-name, $file-name, $weight: 400, $style: normal, $formats: woff2)` | `$font-path`, `$font-format-hints` |
