@@ -9,5 +9,5 @@
 @use "../tokens/breakpoints" as bp;
 
 @forward "include-media/dist/include-media" with (
-  $breakpoints: bp.$breakpoints
+  $breakpoints: bp.$breakpoints !default
 );
