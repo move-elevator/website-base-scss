@@ -1,0 +1,5 @@
+@layer base {
+  select:where(:not(:disabled)) {
+    cursor: pointer;
+  }
+}

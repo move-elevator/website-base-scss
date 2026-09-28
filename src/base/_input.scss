@@ -1,0 +1,5 @@
+@layer base {
+  input:where([type="checkbox"], [type="radio"], [type="file"]):where(:not(:disabled)) {
+    cursor: pointer;
+  }
+}

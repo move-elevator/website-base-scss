@@ -1,0 +1,5 @@
+@layer base {
+  label:where([for], :has(input, select, textarea)) {
+    cursor: pointer;
+  }
+}

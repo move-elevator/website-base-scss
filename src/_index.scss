@@ -1,0 +1,9 @@
+// Default entry — the zero-output foundation: cascade layer order + all tools and
+// tokens (functions, mixins, variables). Importing this emits only the `@layer`
+// order declaration; nothing else until you use a tool or opt into `base`.
+//
+//   @use "@move-elevator/website-base-scss/src" as base with ($breakpoints: (tablet: 768px));
+
+@forward "layers";
+@forward "tools";
+@forward "tokens";
