@@ -247,13 +247,42 @@ npm dependencies via its post-start hook:
 ```bash
 ddev start
 ddev npm run test:build     # compile every example to example/.dist/
-ddev npm run lint           # stylelint the package sources
+ddev npm run lint           # run every check over the whole tree
 ddev npm run fix            # autofix styles and normalise package.json
+```
+
+`lint` aggregates three checks, each also runnable on its own:
+
+```bash
+ddev npm run lint:style             # stylelint the package sources
+ddev npm run lint:editorconfig      # .editorconfig conformance
+ddev npm run lint:package:normalize # package.json key order and formatting
 ```
 
 `test:build` compiles the whole `example/` directory, so adding a file there — say
 `example/font-face.scss` — is enough to have it covered; no script to touch. Files
 prefixed with `_` are treated as Sass partials and skipped.
+
+### Quality gates
+
+A **pre-commit hook** runs the same checks against your *staged* files only, so unrelated
+work in progress never blocks a clean commit. It is wired up by `npm install` — and
+therefore by `ddev start` on a fresh clone — which points `core.hooksPath` at
+`.githooks/`. In an existing clone, enable it once with:
+
+```bash
+ddev npm install            # or: git config core.hooksPath .githooks
+```
+
+The hook delegates to [lint-staged](https://github.com/lint-staged/lint-staged)
+(`.lintstagedrc.json`) inside the container. Use `git commit --no-verify` to bypass it.
+
+> lint-staged briefly hides unstaged changes to *partially staged* files while the checks
+> run. If a run is interrupted, that work is recoverable from the backup stash — see
+> `git stash list`. Your commit is unaffected either way, since git commits the index.
+
+Every push additionally runs the whole-tree checks plus `test:build` in the **CGL**
+workflow (`.github/workflows/cgl.yml`), so nothing depends on the hook having run.
 
 Released automatically with semantic-release. Pairs with
 [`@move-elevator/stylelint-config-scss`](https://github.com/move-elevator/stylelint-config-scss).

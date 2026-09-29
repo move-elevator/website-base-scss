@@ -1,0 +1,5 @@
+{
+	"*": "editorconfig-checker",
+	"package.json": "prettier-package-json --list-different --use-tabs",
+	"src/**/*.scss": "stylelint"
+}

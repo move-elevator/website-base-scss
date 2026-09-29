@@ -16,8 +16,12 @@
 		"fix": "run-p fix:package:normalize fix:style",
 		"fix:package:normalize": "prettier-package-json --write package.json --use-tabs",
 		"fix:style": "npm run lint:style -- --fix",
-		"lint": "npm run lint:style",
+		"lint": "run-s lint:editorconfig lint:package:normalize lint:style",
+		"lint:editorconfig": "editorconfig-checker",
+		"lint:package:normalize": "prettier-package-json --list-different package.json --use-tabs",
+		"lint:staged": "lint-staged",
 		"lint:style": "stylelint \"src/**/*.scss\"",
+		"prepare": "git config core.hooksPath .githooks || true",
 		"test:build": "rm -rf example/.dist && sass --no-source-map --load-path=./node_modules example:example/.dist"
 	},
 	"peerDependencies": {
@@ -32,6 +36,8 @@
 	"devDependencies": {
 		"@move-elevator/stylelint-config-scss": "^3.0.0",
 		"@stylistic/stylelint-plugin": "^5.3.0",
+		"editorconfig-checker": "^7.0.0",
+		"lint-staged": "^17.6.0",
 		"npm-run-all2": "^9.0.3",
 		"postcss-scss": "^4.0.9",
 		"prettier-package-json": "^2.8.0",
