@@ -10,3 +10,14 @@
 .hero--narrow {
   padding-inline: vw(64px, 1280px);
 }
+
+// A list converts every value at once, keeping the shorthand order.
+.hero__inner {
+  margin: vw(15px 15px);
+  padding: vw(24px 64px 32px 64px);
+}
+
+// Non-numeric values stay as they are.
+.hero__figure {
+  margin: vw(40px auto);
+}

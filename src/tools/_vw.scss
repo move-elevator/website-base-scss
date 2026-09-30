@@ -1,18 +1,38 @@
+@use "sass:list";
 @use "sass:math";
+@use "sass:meta";
 
 // Convert a pixel value into a viewport-width unit relative to a design width.
+// Takes a single value or a list; non-numeric values pass through untouched:
 //   width: vw(320px); // → 22.222vw at a 1440px layout
+//   margin: vw(15px 15px); // → 1.042vw 1.042vw
+//   margin: vw(15px auto); // → 1.042vw auto
 
 $layout-vw: 1440px !default;
 
 @function vw($pixels, $base-vw: $layout-vw) {
-  @if math.is-unitless($pixels) {
-    $pixels: $pixels * 1px;
-  }
-
   @if math.is-unitless($base-vw) {
     $base-vw: $base-vw * 1px;
   }
 
-  @return math.div($pixels, math.div($base-vw, 100)) * 1vw;
+  $result: ();
+  $separator: list.separator($pixels);
+
+  @each $value in $pixels {
+    @if meta.type-of($value) != "number" {
+      $result: list.append($result, $value, $separator);
+    } @else {
+      @if math.is-unitless($value) {
+        $value: $value * 1px;
+      }
+
+      $result: list.append($result, math.div($value, math.div($base-vw, 100)) * 1vw, $separator);
+    }
+  }
+
+  @if list.length($result) == 1 {
+    @return list.nth($result, 1);
+  }
+
+  @return $result;
 }
