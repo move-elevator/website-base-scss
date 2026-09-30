@@ -78,7 +78,7 @@ Each tool has a runnable sheet in [`example/`](example):
 | File | Shows |
 | --- | --- |
 | [`fluid-clamp.scss`](example/fluid-clamp.scss) | `fluid-clamp()` with the default and a custom breakpoint range, plus `px-to-rem()`. |
-| [`vw.scss`](example/vw.scss) | `vw()` against the default 1440px design width and an explicit one. |
+| [`vw.scss`](example/vw.scss) | `vw()` against the default 1440px design width, an explicit one, and shorthand lists. |
 | [`font-face.scss`](example/font-face.scss) | `font-face()` woff2-only, a weight variant, and a multi-format call. |
 | [`icon.scss`](example/icon.scss) | `icon-mask()` vs `icon-background()`. |
 | [`visually-hidden.scss`](example/visually-hidden.scss) | The mixins on project selectors, including the focusable skip-link variant. |
@@ -198,12 +198,23 @@ The opt-in typography partials add their own:
 | --- | --- | --- |
 | `fluid-clamp()` | `fluid-clamp($min-size, $max-size, $min-breakpoint, $max-breakpoint, $unit: vw)` | `$fluid-clamp-baseline: 16px`, `$fluid-clamp-min-breakpoint: 320px`, `$fluid-clamp-max-breakpoint: 1920px` |
 | `px-to-rem()` | `px-to-rem(24px)` — relative to the same baseline | `$fluid-clamp-baseline` |
-| `vw()` | `vw($pixels, $base-vw: $layout-vw)` | `$layout-vw: 1440px` |
+| `vw()` | `vw($pixels, $base-vw: $layout-vw)` — one value or a shorthand list | `$layout-vw: 1440px` |
 | `font-face()` | `@include font-face($font-name, $file-name, $weight: 400, $style: normal, $formats: woff2)` | `$font-path`, `$font-format-hints` |
 | `icon-mask()` / `icon-background()` | `@include icon-mask($identifier)` — mask (tintable) or background SVG | `$icon-path: "../Icons/"` |
 | `visually-hidden()` / `visually-hidden-focusable()` | `@include visually-hidden` — hide visually, keep it for assistive tech | — |
 | `z()` | `z("sticky")` — named z-index lookup (from `tokens`) | `$z-index` map |
 | `media()` | `@include media(">=tablet") { … }` — from `tools/media` | `$breakpoints` map |
+
+`vw()` takes a single value or a list, so shorthand properties convert in one call.
+Values that are not numbers pass through untouched:
+
+```scss
+.hero {
+  height: vw(720px);      // 50vw
+  margin: vw(15px 15px);  // 1.0416666667vw 1.0416666667vw
+  padding: vw(40px auto); // 2.7777777778vw auto
+}
+```
 
 `font-face()` emits woff2 only. Pass `$formats` a list to add further formats, in the
 order browsers should prefer them — the mixin maps each file extension to its CSS
