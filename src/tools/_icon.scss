@@ -7,12 +7,14 @@
 
 $icon-path: "../Icons/" !default;
 
-@mixin icon-mask($identifier) {
-  mask: url($icon-path + $identifier + ".svg") no-repeat center center;
-  mask-size: contain;
+@mixin icon-mask($identifier, $size: contain) {
+  mask-image: url($icon-path + $identifier + ".svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: $size;
 }
 
-@mixin icon-background($identifier) {
+@mixin icon-background($identifier, $size: contain) {
   background: url($icon-path + $identifier + ".svg") no-repeat center center;
-  background-size: contain;
+  background-size: $size;
 }
