@@ -81,6 +81,7 @@ Each tool has a runnable sheet in [`example/`](example):
 | [`vw.scss`](example/vw.scss) | `vw()` against the default 1440px design width, an explicit one, and shorthand lists. |
 | [`font-face.scss`](example/font-face.scss) | `font-face()` woff2-only, a weight variant, and a multi-format call. |
 | [`icon.scss`](example/icon.scss) | `icon-mask()` vs `icon-background()`. |
+| [`motion-safe.scss`](example/motion-safe.scss) | A transition applied only when the user has not asked to reduce motion. |
 | [`visually-hidden.scss`](example/visually-hidden.scss) | The mixins on project selectors, including the focusable skip-link variant. |
 | [`z-index.scss`](example/z-index.scss) | Every `z()` step of the scale. |
 
@@ -93,7 +94,7 @@ repo does not install.
 | --- | --- | --- |
 | `@move-elevator/website-base-scss/src` | `@layer` order only | Default: layer order + all tools + all tokens (zero output). |
 | `.../src/layers` | `@layer` order only | The cascade layer order on its own. |
-| `.../src/tools` | no | Functions & mixins (`fluid-clamp`, `font-face`, `icon`, `visually-hidden`, `vw`). |
+| `.../src/tools` | no | Functions & mixins (`fluid-clamp`, `font-face`, `icon`, `motion-safe`, `visually-hidden`, `vw`). |
 | `.../src/tools/media` | no | `media()` re-exported from include-media, pre-wired to the token breakpoints. |
 | `.../src/tokens` | no | Breakpoints, `$black`/`$white`, the font-weight scale and the `z()` lookup. |
 | `.../src/base` | yes | Element styles, all in `@layer base`. |
@@ -201,6 +202,7 @@ The opt-in typography partials add their own:
 | `vw()` | `vw($pixels, $base-vw: $layout-vw)` — one value or a shorthand list | `$layout-vw: 1440px` |
 | `font-face()` | `@include font-face($font-name, $file-name, $weight: 400, $style: normal, $formats: woff2)` | `$font-path`, `$font-format-hints` |
 | `icon-mask()` / `icon-background()` | `@include icon-mask($identifier)` — mask (tintable) or background SVG | `$icon-path: "../Icons/"` |
+| `motion-safe()` | `@include motion-safe { … }` — wraps `@content` in `prefers-reduced-motion: no-preference` | — |
 | `visually-hidden()` / `visually-hidden-focusable()` | `@include visually-hidden` — hide visually, keep it for assistive tech | — |
 | `z()` | `z("sticky")` — named z-index lookup (from `tokens`) | `$z-index` map |
 | `media()` | `@include media(">=tablet") { … }` — from `tools/media` | `$breakpoints` map |

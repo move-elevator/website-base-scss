@@ -1,0 +1,10 @@
+// Apply motion (animations, transitions, smooth scrolling) only for users who have not
+// asked to reduce it — progressive enhancement: no motion by default, opt in.
+//
+// See: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+
+@mixin motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}

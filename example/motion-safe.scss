@@ -1,0 +1,15 @@
+@use "../src/tools/motion-safe" as *;
+
+// Motion is opt-in: the hover state applies to everyone, the transition only to
+// users who have not asked to reduce motion.
+.button {
+  background-color: #2d3246;
+
+  &:hover {
+    background-color: #000000;
+  }
+
+  @include motion-safe {
+    transition: background-color 0.2s ease-in-out;
+  }
+}
