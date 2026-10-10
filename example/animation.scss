@@ -1,0 +1,26 @@
+@use "../src/layers";
+@use "../src/animation/scale-up";
+@use "../src/animation/spin";
+@use "../src/tools/motion-safe" as *;
+
+.loader {
+  @include motion-safe {
+    animation: spin 1s linear infinite;
+  }
+}
+
+.badge {
+  @include motion-safe {
+    animation: scale-up 2s ease-in-out infinite;
+  }
+}
+
+// A softer pulse that starts below the resting size, via the custom properties.
+.notification-dot {
+  --animation-scale-up-from: 0.8;
+  --animation-scale-up-to: 1.15;
+
+  @include motion-safe {
+    animation: scale-up 1.5s ease-in-out infinite;
+  }
+}

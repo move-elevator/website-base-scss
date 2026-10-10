@@ -1,0 +1,12 @@
+@layer base {
+  @keyframes scale-up {
+    0%,
+    100% {
+      scale: var(--animation-scale-up-from, 1);
+    }
+
+    50% {
+      scale: var(--animation-scale-up-to, 1.2);
+    }
+  }
+}
