@@ -13,7 +13,7 @@ the project declares the values. The only colors in the package are `$black` and
 
 Because it is Sass, the package is a **superset**: projects import only the parts they
 need. Functions, mixins and variables emit **no CSS** until used, so importing the full
-toolbox costs nothing. Only the opt-in `base` and `utility` entries emit rules.
+toolbox costs nothing. Only the opt-in `base`, `utility` and `animation/<name>` entries emit rules.
 
 ## Installation
 
@@ -77,10 +77,12 @@ Each tool has a runnable sheet in [`example/`](example):
 
 | File | Shows |
 | --- | --- |
+| [`animation.scss`](example/animation.scss) | `spin` and `scale-up` behind `motion-safe`, plus a re-scoped `scale-up` range. |
 | [`fluid-clamp.scss`](example/fluid-clamp.scss) | `fluid-clamp()` with the default and a custom breakpoint range, plus `px-to-rem()`. |
 | [`vw.scss`](example/vw.scss) | `vw()` against the default 1440px design width, an explicit one, and shorthand lists. |
 | [`font-face.scss`](example/font-face.scss) | `font-face()` woff2-only, a weight variant, and a multi-format call. |
 | [`icon.scss`](example/icon.scss) | `icon-mask()` vs `icon-background()`. |
+| [`motion-safe.scss`](example/motion-safe.scss) | A transition applied only when the user has not asked to reduce motion. |
 | [`visually-hidden.scss`](example/visually-hidden.scss) | The mixins on project selectors, including the focusable skip-link variant. |
 | [`z-index.scss`](example/z-index.scss) | Every `z()` step of the scale. |
 
@@ -93,13 +95,14 @@ repo does not install.
 | --- | --- | --- |
 | `@move-elevator/website-base-scss/src` | `@layer` order only | Default: layer order + all tools + all tokens (zero output). |
 | `.../src/layers` | `@layer` order only | The cascade layer order on its own. |
-| `.../src/tools` | no | Functions & mixins (`fluid-clamp`, `font-face`, `icon`, `visually-hidden`, `vw`). |
+| `.../src/tools` | no | Functions & mixins (`fluid-clamp`, `font-face`, `icon`, `motion-safe`, `visually-hidden`, `vw`). |
 | `.../src/tools/media` | no | `media()` re-exported from include-media, pre-wired to the token breakpoints. |
 | `.../src/tokens` | no | Breakpoints, `$black`/`$white`, the font-weight scale and the `z()` lookup. |
 | `.../src/base` | yes | Element styles, all in `@layer base`. |
 | `.../src/base/<name>` | yes | A single base partial (e.g. `base/button`). Load `layers` yourself — only the barrel forwards it. |
 | `.../src/utility` | yes | Utility classes, in `@layer utilities`. |
 | `.../src/utility/<name>` | yes | A single utility partial, same caveat about `layers`. |
+| `.../src/animation/<name>` | yes | A single `@keyframes` (e.g. `animation/spin`), in `@layer base`. No barrel — import only what a component uses. Same caveat about `layers`. |
 
 `base` forwards `html`, `button`, `figure`, `focus`, `hidden`, `hr`, `iframe`, `img`,
 `p`, `selection`, `strong` and `video`. **`body` and `headline` are deliberately not in
@@ -192,6 +195,46 @@ The opt-in typography partials add their own:
 | `--line-height-headline` | `1.1` | `base/headline` |
 | `--margin-block-headline` | `0.75em 0` | `base/headline` |
 
+## Animations
+
+Each partial in `animation/` emits one named `@keyframes`; the project decides duration,
+easing and iteration on its own selectors. There is deliberately no barrel: a component
+imports only the keyframes it uses. Sass emits a module once per compilation, so `@use`ing
+the same partial from several components does not duplicate it.
+
+Keyframes do not respect `prefers-reduced-motion` by themselves, so apply them inside
+`motion-safe`:
+
+```scss
+@use "@move-elevator/website-base-scss/src/animation/spin";
+@use "@move-elevator/website-base-scss/src/tools" as *;
+
+.loader {
+  @include motion-safe {
+    animation: spin 1s linear infinite;
+  }
+}
+```
+
+| Keyframes | Does | Custom properties (fallback) |
+| --- | --- | --- |
+| `spin` | One full turn via `rotate`. Use `animation-direction: reverse` to turn counter-clockwise. | — |
+| `scale-up` | Scales out and back via `scale`. | `--animation-scale-up-from` (`1`), `--animation-scale-up-to` (`1.2`) |
+
+Custom properties follow `--animation-<keyframes>-<name>`, so they cannot clash with the
+project's own. They resolve against the animated element, so set them on the same
+selector (or an ancestor) to change the range per use:
+
+```scss
+.notification-dot {
+  --animation-scale-up-from: 0.8;
+  --animation-scale-up-to: 1.15;
+}
+```
+
+All keyframes live in `@layer base`. To replace one, declare a `@keyframes` with the same
+name in a later layer or unlayered — the higher-priority layer wins.
+
 ## Tools
 
 | Tool | Signature | Configurable |
@@ -201,6 +244,7 @@ The opt-in typography partials add their own:
 | `vw()` | `vw($pixels, $base-vw: $layout-vw)` — one value or a shorthand list | `$layout-vw: 1440px` |
 | `font-face()` | `@include font-face($font-name, $file-name, $weight: 400, $style: normal, $formats: woff2)` | `$font-path`, `$font-format-hints` |
 | `icon-mask()` / `icon-background()` | `@include icon-mask($identifier)` — mask (tintable) or background SVG | `$icon-path: "../Icons/"` |
+| `motion-safe()` | `@include motion-safe { … }` — wraps `@content` in `prefers-reduced-motion: no-preference` | — |
 | `visually-hidden()` / `visually-hidden-focusable()` | `@include visually-hidden` — hide visually, keep it for assistive tech | — |
 | `z()` | `z("sticky")` — named z-index lookup (from `tokens`) | `$z-index` map |
 | `media()` | `@include media(">=tablet") { … }` — from `tools/media` | `$breakpoints` map |
