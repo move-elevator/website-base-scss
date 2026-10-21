@@ -26,7 +26,7 @@
 	},
 	"peerDependencies": {
 		"include-media": "^2.0.0",
-		"sass": "^1.105.1"
+		"sass": "^1.106.0"
 	},
 	"peerDependenciesMeta": {
 		"include-media": {
