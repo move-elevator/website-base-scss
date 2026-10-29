@@ -26,7 +26,7 @@
 	},
 	"peerDependencies": {
 		"include-media": "^2.0.0",
-		"sass": "^1.106.0"
+		"sass": "^1.107.0"
 	},
 	"peerDependenciesMeta": {
 		"include-media": {
@@ -38,13 +38,13 @@
 		"@stylistic/stylelint-plugin": "^5.3.1",
 		"editorconfig-checker": "^7.0.0",
 		"lint-staged": "^17.6.0",
-		"npm-run-all2": "^9.0.3",
+		"npm-run-all2": "^9.0.4",
 		"postcss-scss": "^4.0.9",
 		"prettier-package-json": "^2.8.0",
 		"semantic-release": "^25.0.9",
 		"stylelint": "^17.16.0",
 		"stylelint-order": "^8.1.2",
-		"stylelint-scss": "^7.3.0"
+		"stylelint-scss": "^7.4.0"
 	},
 	"keywords": [
 		"css",
