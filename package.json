@@ -26,7 +26,7 @@
 	},
 	"peerDependencies": {
 		"include-media": "^2.0.0",
-		"sass": "^1.107.0"
+		"sass": "^1.107.1"
 	},
 	"peerDependenciesMeta": {
 		"include-media": {
@@ -43,7 +43,7 @@
 		"prettier-package-json": "^2.8.0",
 		"semantic-release": "^25.0.9",
 		"stylelint": "^17.16.0",
-		"stylelint-order": "^8.1.2",
+		"stylelint-order": "^8.1.3",
 		"stylelint-scss": "^7.4.0"
 	},
 	"keywords": [
