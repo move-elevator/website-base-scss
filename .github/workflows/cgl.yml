@@ -16,4 +16,7 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run lint
+        env:
+          # editorconfig-checker fetches its binary via the GitHub API; unauthenticated requests hit the shared runner IP rate limit
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run test:build
